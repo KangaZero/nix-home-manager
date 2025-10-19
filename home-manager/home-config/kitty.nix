@@ -1,8 +1,8 @@
 {pkgs, lib, config, ... }: {
   
-  options = {
-      kitty.enable = lib.mkEnableOption "enables kitty";
-    };
+  # options = {
+  #     kitty.enable = lib.mkEnableOption "enables kitty";
+  #   };
 
 
 programs.kitty = lib.mkForce {
@@ -10,7 +10,7 @@ programs.kitty = lib.mkForce {
    font = {
       name = "JetBrainsMono Nerd Font";
       size = 13;
-    }
+    };
  settings = {
     foreground = "#cdd6f4";
     background = "#1e1e2e";

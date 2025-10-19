@@ -1,13 +1,11 @@
 {pkgs, lib, config, ... }: {
   
-  options = {
-      ssh.enable = lib.mkEnableOption "enables ssh";
-    };
+  # options = {
+  #     ssh.enable = lib.mkEnableOption "enables ssh";
+  #   };
 
 
-programs.ssh = lib.mkIf config.ssh.enable {
+programs.ssh = {
    enable = true;	
-   startAgent = true;
-   addKeysToAgent = "yes";
 };
 }

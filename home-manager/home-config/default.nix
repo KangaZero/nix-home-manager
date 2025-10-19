@@ -1,5 +1,7 @@
-[
-./git.nix
-./ssh.nix
-./kitty.nix
-]
+{ pkgs, lib, ... }: {
+   imports = [
+      ./git.nix
+      ./ssh.nix
+      ./kitty.nix
+    ];
+}
