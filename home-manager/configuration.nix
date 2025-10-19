@@ -42,8 +42,32 @@
     LC_TIME = "ja_JP.UTF-8";
   };
 
+i18n.inputMethod = {
+  enabled = "fcitx5";
+  fcitx5.addons = with pkgs; [
+    fcitx5-mozc
+  ];
+  # Use the Wayland frontend for Fcitx5
+  fcitx5.waylandFrontend = true;
+};
   # Enable the X11 windowing system.
   services.xserver.enable = false;
+  
+fonts = {
+  packages = with pkgs; [
+    nerd-fonts.jetbrains-mono
+    noto-fonts-cjk-sans # Excellent for CJK character coverage
+  ];
+  fontconfig = {
+    enable = true;
+    defaultFonts = {
+      # Add Japanese fonts as fallbacks
+      sansSerif = [ "Noto Sans CJK JP" "DejaVu Sans" ];
+      serif = [ "Noto Serif CJK JP" "DejaVu Serif" ];
+      monospace = [ "Noto Sans Mono CJK JP" ];
+    };
+  };
+};
 
   # Enable the GNOME Desktop Environment.
   # services.xserver.displayManager.gdm.enable = true;
