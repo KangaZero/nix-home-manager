@@ -48,21 +48,19 @@
   # Enable the GNOME Desktop Environment.
   # services.xserver.displayManager.gdm.enable = true;
   # services.xserver.desktopManager.gnome.enable = true;
-  hardware.opengl = {
-      enable = true;
-      driSupport = true;
-      driSupport32Bit = true;
-      extraPackages = with pkgs: [
-      vulkan-loader
-      vulkan-tools
-      intel-media-driver
-      ];
-    }
+  # hardware.opengl = {
+  #     enable = true;
+  #     extraPackages = with pkgs; [
+  #     vulkan-loader
+  #     vulkan-tools
+  #     intel-media-driver
+  #     ];
+  #   };
   # Configure keymap in X11
-  services.xserver.xkb = {
-    layout = "us";
-    variant = "";
-  };
+  # services.xserver.xkb = {
+  #   layout = "us";
+  #   variant = "";
+  # };
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
@@ -103,7 +101,7 @@
 
   programs.zsh = {
   enable = true;
-  shellInit = "fastfetch";
+  shellInit = "Hyprland";
   autosuggestions.async = true;
   enableLsColors = true;
   enableBashCompletion = true;
