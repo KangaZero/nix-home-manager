@@ -101,7 +101,7 @@
 
   programs.zsh = {
   enable = true;
-  shellInit = "Hyprland";
+  shellInit = "fastfetch";
   autosuggestions.async = true;
   enableLsColors = true;
   enableBashCompletion = true;
