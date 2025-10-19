@@ -13,9 +13,10 @@
 
     # LazyVim Nix module
     lazyvim.url = "github:pfassina/lazyvim-nix";
+    hyprland.url = "github:hyprwm/Hyprland";
   };
 
-  outputs = { self, nixpkgs, home-manager, lazyvim, ... } @ inputs: let
+  outputs = { self, nixpkgs, home-manager, hyprland, lazyvim, ... } @ inputs: let
     inherit (self) outputs;
     systems = [
       "aarch64-linux"
@@ -74,6 +75,14 @@
 	pkgs = nixpkgs.legacyPackages.x86_64-linux;
 	modules = [./home.nix
   lazyvim.homeManagerModules.default
+{
+          wayland.windowManager.hyprland = {
+            enable = true;
+            # set the flake package
+            package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
+            portalPackage = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
+          };
+        }
   ];
   extraSpecialArgs = {inherit inputs outputs;};
    };
