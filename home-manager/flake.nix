@@ -14,6 +14,10 @@
     # LazyVim Nix module
     lazyvim.url = "github:pfassina/lazyvim-nix";
     hyprland.url = "github:hyprwm/Hyprland";
+    hyprland-plugins = {
+        url = "github:hyprwm/hyprland-plugins";
+        inputs.hyprland.follows = "hyprland";
+      };
   };
 
   outputs = { self, nixpkgs, home-manager, hyprland, lazyvim, ... } @ inputs: let
@@ -28,6 +32,7 @@
     # This is a function that generates an attribute by calling a function you
     # pass to it, with each system as an argument
     forAllSystems = nixpkgs.lib.genAttrs systems;
+    pkgs = nixpkgs.legacyPackages.x86_64-linux;
    
   in {
     # Accessible through 'nix build', 'nix shell', etc
@@ -50,24 +55,6 @@
      modules = [
         # Your main NixOS system config
         ./configuration.nix
-
-        # Integrate Home Manager with NixOS
-        #  home-manager.nixosModules.home-manager
-        # #
-        #  {
-        #    home-manager.useGlobalPkgs = true;
-        #    home-manager.useUserPackages = true;
-        # #
-        # #   # Define the user's home config
-        #   home-manager.users.sam = {
-        #     imports = [
-        #        ./home.nix
-        #        lazyvim.homeManagerModules.default
-        #      ];
-        #
-        #      programs.lazyvim.enable = true;
-        #   };
-        #  }
       ];
     };
 
@@ -81,6 +68,10 @@
             # set the flake package
             package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
             portalPackage = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
+            plugins = [
+              inputs.hyprland-plugins.packages.${pkgs.system}.hyprbars
+              inputs.hyprland-plugins.packages.${pkgs.system}.hyprscrolling              
+            ];
           };
         }
   ];

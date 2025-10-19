@@ -1,11 +1,13 @@
 {pkgs, lib, config, ... }: {
-  
+ programs.hyprlock.enable = true;
+  services.hypridle.enable = true;
+
    wayland.windowManager.hyprland.settings = {
-    "$mod" = "SUPER";
+    "$mod" = "super";
     bind =
       [
-        "$mod, F, exec, firefox"
-        ", Print, exec, grimblast copy area"
+        "$mod, f, exec, firefox"
+        ", print, exec, grimblast copy area"
       ]
       ++ (
         # workspaces
@@ -14,7 +16,7 @@
             let ws = i + 1;
             in [
               "$mod, code:1${toString i}, workspace, ${toString ws}"
-              "$mod SHIFT, code:1${toString i}, movetoworkspace, ${toString ws}"
+              "$mod shift, code:1${toString i}, movetoworkspace, ${toString ws}"
             ]
           )
           9)

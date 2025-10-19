@@ -43,12 +43,21 @@
   };
 
   # Enable the X11 windowing system.
-  services.xserver.enable = true;
+  services.xserver.enable = false;
 
   # Enable the GNOME Desktop Environment.
-  services.xserver.displayManager.gdm.enable = true;
-  services.xserver.desktopManager.gnome.enable = true;
-
+  # services.xserver.displayManager.gdm.enable = true;
+  # services.xserver.desktopManager.gnome.enable = true;
+  hardware.opengl = {
+      enable = true;
+      driSupport = true;
+      driSupport32Bit = true;
+      extraPackages = with pkgs: [
+      vulkan-loader
+      vulkan-tools
+      intel-media-driver
+      ];
+    }
   # Configure keymap in X11
   services.xserver.xkb = {
     layout = "us";
@@ -151,6 +160,9 @@
     vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     home-manager
     hyprland
+    wofi
+    waybar
+    nwg-look
   #  wget
   ];
 
@@ -166,7 +178,6 @@
 
   # Enable the OpenSSH daemon.
    services.openssh.enable = true;
-
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
   # networking.firewall.allowedUDPPorts = [ ... ];
