@@ -57,7 +57,18 @@
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
-
+  # For Kitty transparency config
+  services.picom = {
+      enable = true;
+      backend = "glx";
+      vSync = true;
+      fade = true;
+      fadeDelta = 4;
+      inactiveOpacity = 0.9;
+      activeOpacity = 1.0;
+      shadow = true;
+      shadowOpacity = 0.75;
+    };
   # Enable sound with pipewire.
   services.pulseaudio.enable = false;
   security.rtkit.enable = true;

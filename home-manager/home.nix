@@ -17,7 +17,8 @@
 
   # The home.packages option allows you to install Nix packages into your
   # environment.
-  home.packages = [
+  home.packages = with pkgs; [
+    nerd-fonts.jetbrains-mono
     # # Adds the 'hello' command to your environment. It prints a friendly
     # # "Hello, world!" when run.
     # pkgs.hello
@@ -72,18 +73,11 @@
   };
 
   # Let Home Manager install and manage itself.
+   programs.lazyvim = {
+      enable = true;
+      configFiles = ./lua;
+    }; 
   programs.home-manager.enable = true;
-  programs.git = {
-   enable = true;
-   userName = "KangaZero";
-   userEmail = "samuelyongw@gmail.com";
-   extraConfig = {
-    credential.helper = "store";
-     };
-   };
-  programs.ssh = {
-   enable = true;	
-   startAgent = true;
-   addKeysToAgent = "yes";
-};
+  imports = [./home-config/default.nix];
+
 }
