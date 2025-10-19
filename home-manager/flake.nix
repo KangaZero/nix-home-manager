@@ -8,6 +8,7 @@
     # Home Manager
     home-manager = {
       url = "github:nix-community/home-manager";
+# Ensure nixos packages and home-manager version matches
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -25,24 +26,28 @@
         ./configuration.nix
 
         # Integrate Home Manager with NixOS
-        home-manager.nixosModules.home-manager
-
-        {
-          home-manager.useGlobalPkgs = true;
-          home-manager.useUserPackages = true;
-
-          # Define the user's home config
-          home-manager.users.sam = {
-            imports = [
-              ./home.nix
-              lazyvim.homeManagerModules.default
-            ];
-
-            programs.lazyvim.enable = true;
-          };
-        }
+        # home-manager.nixosModules.home-manager
+        #
+        # {
+        #   home-manager.useGlobalPkgs = true;
+        #   home-manager.useUserPackages = true;
+        #
+        #   # Define the user's home config
+        #   home-manager.users.sam = {
+        #     imports = [
+        #       ./home.nix
+        #       lazyvim.homeManagerModules.default
+        #     ];
+        #
+        #     programs.lazyvim.enable = true;
+        #   };
+        # }
       ];
     };
+    homeConfigurations.sam = home-manager.lib.homeConfiguration {
+        pkgs = nixpkgs.legacyPackages.${system};
+        modules = [ ./home.nix lazyvim.homeManagerModules.default];
+      };
   };
 }
 
